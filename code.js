@@ -2,6 +2,7 @@ let firstNumber;
 let secondNumber;
 let operator;
 let operatorClicked = false;
+let equalClicked = false;
 let numberOfTimesOperatorClicked = 0;
 let currentTotal = 0;
 
@@ -23,6 +24,8 @@ allClear.addEventListener('click', () => {
     numberOfTimesOperatorClicked = 0;
     firstNumber = 0;
     secondNumber = 0;
+    operatorClicked = false;
+    equalClicked = false;
 });
 
 const addition = document.querySelector('#add');
@@ -41,6 +44,9 @@ const operators = document.querySelectorAll('.operator');
 operators.forEach(operator => operator.addEventListener('click', () => operatorPressed()));
 
 function operatorPressed() {
+    if (operatorClicked === true || equalClicked === true) {
+        return;
+    }
     if (numberOfTimesOperatorClicked === 0) {
         firstNumber = label.textContent;
     } else {
@@ -56,7 +62,15 @@ function operatorPressed() {
 // after that, second number is input
 
 const equalButton = document.querySelector('#equals');
-equalButton.addEventListener('click', () => operate());
+equalButton.addEventListener('click', () => {
+    if (operatorClicked === true) {
+        return;
+    }
+    if (equalClicked === false) {
+        operate();
+    }
+    equalClicked = true;
+});
 
 function clearLabel() {
     label.textContent = '';
@@ -67,6 +81,7 @@ function labelDisplay(display) {
 }
 
 function operate() {
+    equalClicked = false;
     secondNumber = label.textContent;
     if (operator === '+') {
         add(firstNumber,secondNumber);
