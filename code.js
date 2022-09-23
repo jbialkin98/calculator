@@ -58,11 +58,10 @@ function operatorPressed() {
     numberOfTimesOperatorClicked++;
 }
 
-// first time operator is pressed, first number is the input
-// after that, second number is input
-
 const equalButton = document.querySelector('#equals');
-equalButton.addEventListener('click', () => {
+equalButton.addEventListener('click', () => equalButtonClicked());
+
+function equalButtonClicked() {
     if (operatorClicked === true) {
         return;
     }
@@ -70,7 +69,7 @@ equalButton.addEventListener('click', () => {
         operate();
     }
     equalClicked = true;
-});
+}
 
 function clearLabel() {
     label.textContent = '';
@@ -81,7 +80,8 @@ function labelDisplay(display) {
 }
 
 function operate() {
-    equalClicked = false;
+
+
     secondNumber = label.textContent;
     if (operator === '+') {
         add(firstNumber,secondNumber);
@@ -92,6 +92,9 @@ function operate() {
     } else if (operator === '/') {
         divide(firstNumber,secondNumber);
     }
+
+    equalClicked = false;
+    operatorClicked = true;
 }
 
 function add(a, b) {
