@@ -10,6 +10,11 @@ body {
     border: solid;
     border-color: black;
     box-sizing: border-box;
+    font-size: 65px;
+    display: flex;
+    justify-content: flex-end;
+    align-items: flex-end;
+    padding-right: 10px;
 }
 
 .buttons {
