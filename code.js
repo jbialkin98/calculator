@@ -1,11 +1,16 @@
 let firstNumber;
 let secondNumber;
 let operator;
+let operatorClicked = false;
 
 const label = document.querySelector('.label');
 
 const btn = document.querySelectorAll('.digit');
 btn.forEach(btn => btn.addEventListener('click', () => {
+    if (operatorClicked === true) {
+        clearLabel();
+    }
+    operatorClicked = false;
     console.log(btn.textContent);
     label.textContent += btn.textContent;
 }));
@@ -26,10 +31,12 @@ const division = document.querySelector('#divide');
 division.addEventListener('click', () => operator = '/');
 
 const operators = document.querySelectorAll('.operator');
-operators.forEach(operator => operator.addEventListener('click', () => {
+operators.forEach(operator => operator.addEventListener('click', () => operatorPressed()));
+
+function operatorPressed() {
     firstNumber = label.textContent;
-    label.textContent = '';
-}));
+    operatorClicked = true;
+}
 
 const equalButton = document.querySelector('#equals');
 equalButton.addEventListener('click', () => operate());
