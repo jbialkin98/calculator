@@ -2,6 +2,8 @@ let firstNumber;
 let secondNumber;
 let operator;
 let operatorClicked = false;
+let numberOfTimesOperatorClicked = 0;
+let currentTotal = 0;
 
 const label = document.querySelector('.label');
 
@@ -16,7 +18,12 @@ btn.forEach(btn => btn.addEventListener('click', () => {
 }));
 
 const allClear = document.querySelector('#clear');
-allClear.addEventListener('click', () => clearLabel());
+allClear.addEventListener('click', () => {
+    clearLabel()
+    numberOfTimesOperatorClicked = 0;
+    firstNumber = 0;
+    secondNumber = 0;
+});
 
 const addition = document.querySelector('#add');
 addition.addEventListener('click', () => operator = '+');
@@ -34,9 +41,19 @@ const operators = document.querySelectorAll('.operator');
 operators.forEach(operator => operator.addEventListener('click', () => operatorPressed()));
 
 function operatorPressed() {
+    if (numberOfTimesOperatorClicked === 0) {
+        firstNumber = label.textContent;
+    } else {
+        secondNumber = label.textContent;
+        operate();
+    }
     firstNumber = label.textContent;
     operatorClicked = true;
+    numberOfTimesOperatorClicked++;
 }
+
+// first time operator is pressed, first number is the input
+// after that, second number is input
 
 const equalButton = document.querySelector('#equals');
 equalButton.addEventListener('click', () => operate());
@@ -66,26 +83,30 @@ function add(a, b) {
     let sum = Number(a) + Number(b);
     console.log(sum);
     labelDisplay(sum);
-    return sum;
+    currentTotal = sum;
+    firstNumber = currentTotal;
 }
 
 function subtract(a, b) {
     let difference = a - b;
     console.log(difference);
     labelDisplay(difference);
-    return difference;
+    currentTotal = difference;
+    firstNumber = currentTotal;
 }
 
 function multiply(a, b) {
     let product = a * b;
     console.log(product);
     labelDisplay(product);
-    return product;
+    currentTotal = product;
+    firstNumber = currentTotal;
 }
 
 function divide(a, b) {
     let quotient = a / b;
     console.log(quotient);
     labelDisplay(quotient);
-    return quotient;
+    currentTotal = quotient;
+    firstNumber = currentTotal;
 }
