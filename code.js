@@ -16,6 +16,7 @@ btn.forEach(btn => btn.addEventListener('click', () => {
         clearLabel();
     }
     operatorClicked = false;
+    equalClicked = false;
     label.textContent += btn.textContent;
 }));
 
@@ -83,6 +84,7 @@ function equalButtonPressed() {
     firstNumber = label.textContent;
     equalClicked = true;
     operatorClicked = false;
+    numberOfTimesOperatorClicked = 0;
 }
 
 function clearLabel() {
