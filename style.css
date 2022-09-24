@@ -32,3 +32,15 @@ button {
     width: 100px;
     height: 100px;
 }
+
+.rightColumn {
+    background-color: orange;
+}
+
+.digit, .specialCase {
+    background-color: gray;
+}
+
+.topButtons {
+    background-color: lightgray;
+}

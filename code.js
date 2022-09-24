@@ -15,6 +15,7 @@ btn.forEach(btn => btn.addEventListener('click', () => {
     if (operatorClicked === true) {
         clearLabel();
     }
+    resetOrangeButtons();
     operatorClicked = false;
     equalClicked = false;
     label.textContent += btn.textContent;
@@ -22,7 +23,8 @@ btn.forEach(btn => btn.addEventListener('click', () => {
 
 const allClear = document.querySelector('#clear');
 allClear.addEventListener('click', () => {
-    clearLabel()
+    clearLabel();
+    resetOrangeButtons();
     numberOfTimesOperatorClicked = 0;
     firstNumber = 0;
     secondNumber = 0;
@@ -43,7 +45,15 @@ const division = document.querySelector('#divide');
 division.addEventListener('click', () => nextOperator = '/');
 
 const operators = document.querySelectorAll('.operator');
-operators.forEach(operator => operator.addEventListener('click', () => operatorPressed()));
+operators.forEach(operator => operator.addEventListener('click', () => {
+    resetOrangeButtons();
+    operator.style.background = 'white';
+    operatorPressed();
+}));
+
+function resetOrangeButtons() {
+    operators.forEach(operator => operator.style.background = 'orange');
+}
 
 function operatorPressed() {
     if (operatorClicked === true) {
