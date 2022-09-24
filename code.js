@@ -1,11 +1,12 @@
 let firstNumber;
 let secondNumber;
 let operator;
+let nextOperator;
 let operatorClicked = false;
 let equalClicked = false;
 let numberOfTimesOperatorClicked = 0;
 let currentTotal = 0;
-let nextOperator;
+
 
 const label = document.querySelector('.label');
 
@@ -15,7 +16,6 @@ btn.forEach(btn => btn.addEventListener('click', () => {
         clearLabel();
     }
     operatorClicked = false;
-    console.log(btn.textContent);
     label.textContent += btn.textContent;
 }));
 
@@ -45,13 +45,14 @@ const operators = document.querySelectorAll('.operator');
 operators.forEach(operator => operator.addEventListener('click', () => operatorPressed()));
 
 function operatorPressed() {
-    if (operatorClicked === true || equalClicked === true) {
+    if (operatorClicked === true) {
+        operator = nextOperator;
         return;
     }
     if (numberOfTimesOperatorClicked < 1) {
         firstNumber = label.textContent;
         operator = nextOperator;
-        console.log(operator);
+        console.log(secondNumber);
         // pass to operate function with operator
         // right now, code is taking most recent operator pressed and doing the math 
             // with that operator, but it should be using the original operator pressed first
@@ -65,19 +66,23 @@ function operatorPressed() {
 
     operatorClicked = true;
     numberOfTimesOperatorClicked++;
+    console.log(numberOfTimesOperatorClicked);
 }
 
 const equalButton = document.querySelector('#equals');
-equalButton.addEventListener('click', () => equalButtonClicked());
+equalButton.addEventListener('click', () => equalButtonPressed());
 
-function equalButtonClicked() {
+function equalButtonPressed() {
     if (operatorClicked === true) {
         return;
     }
     if (equalClicked === false) {
+        operatorClicked = false;
         operate();
     }
+    firstNumber = label.textContent;
     equalClicked = true;
+    operatorClicked = false;
 }
 
 function clearLabel() {
