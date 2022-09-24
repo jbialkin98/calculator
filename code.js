@@ -5,6 +5,7 @@ let operatorClicked = false;
 let equalClicked = false;
 let numberOfTimesOperatorClicked = 0;
 let currentTotal = 0;
+let nextOperator;
 
 const label = document.querySelector('.label');
 
@@ -29,16 +30,16 @@ allClear.addEventListener('click', () => {
 });
 
 const addition = document.querySelector('#add');
-addition.addEventListener('click', () => operator = '+');
+addition.addEventListener('click', () => nextOperator = '+');
 
 const subtraction = document.querySelector('#subtract');
-subtraction.addEventListener('click', () => operator = '-');
+subtraction.addEventListener('click', () => nextOperator = '-');
 
 const multiplication = document.querySelector('#multiply');
-multiplication.addEventListener('click', () => operator = '*');
+multiplication.addEventListener('click', () => nextOperator = '*');
 
 const division = document.querySelector('#divide');
-division.addEventListener('click', () => operator = '/');
+division.addEventListener('click', () => nextOperator = '/');
 
 const operators = document.querySelectorAll('.operator');
 operators.forEach(operator => operator.addEventListener('click', () => operatorPressed()));
@@ -47,13 +48,21 @@ function operatorPressed() {
     if (operatorClicked === true || equalClicked === true) {
         return;
     }
-    if (numberOfTimesOperatorClicked === 0) {
+    if (numberOfTimesOperatorClicked < 1) {
         firstNumber = label.textContent;
+        operator = nextOperator;
+        console.log(operator);
+        // pass to operate function with operator
+        // right now, code is taking most recent operator pressed and doing the math 
+            // with that operator, but it should be using the original operator pressed first
+
+        // I can try placing the operator event listeners under the call to the operate function
     } else {
         secondNumber = label.textContent;
         operate();
+        operator = nextOperator;
     }
-    firstNumber = label.textContent;
+
     operatorClicked = true;
     numberOfTimesOperatorClicked++;
 }
@@ -80,8 +89,6 @@ function labelDisplay(display) {
 }
 
 function operate() {
-
-
     secondNumber = label.textContent;
     if (operator === '+') {
         add(firstNumber,secondNumber);
