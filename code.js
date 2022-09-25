@@ -5,10 +5,10 @@ let operator;
 let nextOperator;
 let operatorClicked = false;
 let numberOfTimesOperatorClicked = 0;
+let numberOfDigitsInNumber = 0;
 let equalClicked = false;
 let decimalUsed = false;
-
-
+let numberOfTimesPercentageClicked = 0;
 
 const label = document.querySelector('.label');
 label.textContent = '0';
@@ -26,6 +26,7 @@ btn.forEach(btn => btn.addEventListener('click', () => {
     operatorClicked = false;
     equalClicked = false;
     label.textContent += btn.textContent;
+    numberOfDigitsInNumber++;
 }));
 
 const allClear = document.querySelector('#clear');
@@ -37,6 +38,7 @@ allClear.addEventListener('click', () => {
     secondNumber = 0;
     operatorClicked = false;
     equalClicked = false;
+    numberOfDigitsInNumber = 0;
 });
 
 const posNeg = document.querySelector('#positiveNegative');
@@ -46,7 +48,11 @@ posNeg.addEventListener('click', () => {
 
 const percentage = document.querySelector('#percentage');
 percentage.addEventListener('click', () => {
+    if (numberOfTimesPercentageClicked > 0 || operatorClicked === true) {
+        return;
+    }
     label.textContent = Number(label.textContent) / 100;
+    numberOfTimesPercentageClicked++;
 });
 
 const decimal = document.querySelector('#dot');
@@ -74,6 +80,9 @@ division.addEventListener('click', () => nextOperator = '/');
 
 const operators = document.querySelectorAll('.operator');
 operators.forEach(operator => operator.addEventListener('click', () => {
+    if (numberOfDigitsInNumber < 1) {
+        return;
+    }
     resetOrangeButtons();
     operator.style.background = 'white';
     operatorPressed();
@@ -88,6 +97,9 @@ function operatorPressed() {
         operator = nextOperator;
         return;
     }
+    if (numberOfDigitsInNumber < 1) {
+        return;
+    }
     if (numberOfTimesOperatorClicked < 1) {
         firstNumber = label.textContent;
         operator = nextOperator;
@@ -100,6 +112,8 @@ function operatorPressed() {
     operatorClicked = true;
     decimalUsed = false;
     numberOfTimesOperatorClicked++;
+    numberOfDigitsInNumber = 0;
+    numberOfTimesPercentageClicked = 0;
 }
 
 const equalButton = document.querySelector('#equals');
@@ -173,7 +187,6 @@ function multiply(a, b) {
 }
 
 function divide(a, b) {
-    console.log(b);
     if (Number(b) === 0) {
         label.textContent = 'ERROR';
         return;
