@@ -17,7 +17,7 @@ btn.forEach(btn => btn.addEventListener('click', () => digitPressed(btn)));
 
 function digitPressed(digit) {
         if (operatorClicked === true || label.textContent === '0' || equalClicked === true ||
-            label.textContent === 'ERROR' || label.textContent === 'OVERFLOW') {
+            label.textContent === 'ERROR') {
             clearLabel();
         }
         if (label.textContent.toString().length === 10) {
@@ -145,7 +145,9 @@ function labelDisplay(display) {
     if (display.toString().length <= 10) {
         label.textContent = display;
     } else {
-        label.textContent = 'OVERFLOW';
+        display = Number(display.toExponential());
+        display = display.toPrecision(4);
+        label.textContent = display;
     }
 }
 
