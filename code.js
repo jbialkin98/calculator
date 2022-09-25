@@ -9,11 +9,15 @@ let currentTotal = 0;
 
 
 const label = document.querySelector('.label');
+label.textContent = '0';
 
 const btn = document.querySelectorAll('.digit');
 btn.forEach(btn => btn.addEventListener('click', () => {
-    if (operatorClicked === true) {
+    if (operatorClicked === true || Number(label.textContent) === 0) {
         clearLabel();
+    }
+    if (Number(label.textContent) > 9999999999) {
+        return;
     }
     resetOrangeButtons();
     operatorClicked = false;
@@ -23,13 +27,23 @@ btn.forEach(btn => btn.addEventListener('click', () => {
 
 const allClear = document.querySelector('#clear');
 allClear.addEventListener('click', () => {
-    clearLabel();
+    label.textContent = '0';
     resetOrangeButtons();
     numberOfTimesOperatorClicked = 0;
     firstNumber = 0;
     secondNumber = 0;
     operatorClicked = false;
     equalClicked = false;
+});
+
+const posNeg = document.querySelector('#positivenegative');
+posNeg.addEventListener('click', () => {
+    label.textContent = Number(label.textContent) * -1;
+});
+
+const percentage = document.querySelector('#percentage');
+percentage.addEventListener('click', () => {
+    label.textContent = Number(label.textContent) / 100;
 });
 
 const addition = document.querySelector('#add');
@@ -63,7 +77,6 @@ function operatorPressed() {
     if (numberOfTimesOperatorClicked < 1) {
         firstNumber = label.textContent;
         operator = nextOperator;
-        console.log(secondNumber);
         // pass to operate function with operator
         // right now, code is taking most recent operator pressed and doing the math 
             // with that operator, but it should be using the original operator pressed first
@@ -77,7 +90,6 @@ function operatorPressed() {
 
     operatorClicked = true;
     numberOfTimesOperatorClicked++;
-    console.log(numberOfTimesOperatorClicked);
 }
 
 const equalButton = document.querySelector('#equals');
@@ -123,7 +135,6 @@ function operate() {
 
 function add(a, b) {
     let sum = Number(a) + Number(b);
-    console.log(sum);
     labelDisplay(sum);
     currentTotal = sum;
     firstNumber = currentTotal;
@@ -131,7 +142,6 @@ function add(a, b) {
 
 function subtract(a, b) {
     let difference = a - b;
-    console.log(difference);
     labelDisplay(difference);
     currentTotal = difference;
     firstNumber = currentTotal;
@@ -139,7 +149,6 @@ function subtract(a, b) {
 
 function multiply(a, b) {
     let product = a * b;
-    console.log(product);
     labelDisplay(product);
     currentTotal = product;
     firstNumber = currentTotal;
@@ -147,7 +156,6 @@ function multiply(a, b) {
 
 function divide(a, b) {
     let quotient = a / b;
-    console.log(quotient);
     labelDisplay(quotient);
     currentTotal = quotient;
     firstNumber = currentTotal;
