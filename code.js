@@ -16,7 +16,7 @@ btn.forEach(btn => btn.addEventListener('click', () => {
     if (operatorClicked === true || Number(label.textContent) === 0) {
         clearLabel();
     }
-    if (Number(label.textContent) > 9999999999) {
+    if (label.textContent.toString().length === 10) {
         return;
     }
     resetOrangeButtons();
@@ -114,7 +114,11 @@ function clearLabel() {
 }
 
 function labelDisplay(display) {
-    label.textContent = display;
+    if (display.toString().length <= 10) {
+        label.textContent = display;
+    } else {
+        label.textContent = 'OVERFLOW';
+    }
 }
 
 function operate() {
@@ -155,6 +159,11 @@ function multiply(a, b) {
 }
 
 function divide(a, b) {
+    console.log(b);
+    if (Number(b) === 0) {
+        label.textContent = 'ERROR';
+        return;
+    }
     let quotient = a / b;
     labelDisplay(quotient);
     currentTotal = quotient;
