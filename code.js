@@ -26,7 +26,11 @@ function digitPressed(digit) {
         resetOrangeButtons();
         operatorClicked = false;
         equalClicked = false;
-        label.textContent += digit.textContent;
+        if (typeof digit === 'number') {
+            label.textContent += digit;
+        } else {
+            label.textContent += digit.textContent;
+        }
 }
 
 
@@ -66,20 +70,44 @@ decimal.addEventListener('click', () => {
     decimalUsed = true;
 });
 
+document.addEventListener('keypress', (e) => {
+    let name = e.key;
+    let code =  e.code;
+    switch (name) {
+        case '+':
+        case '-':
+        case '*':
+        case '/':
+            console.log(name);
+            break;
+        case '1':
+        case '2':
+        case '3':
+        case '4':
+        case '5':
+        case '6':
+        case '7':
+        case '8':
+        case '9':
+        case '0':
+            console.log(name);
+            digitPressed(Number(name));
+            break;
+        case '.':
+            console.log(name);
+            break;
+        case '=':
+        case 'Enter':
+            console.log(name);
+            break;
+        case '%':
+            console.log(name);
+            break;
+    }
+});
+
 const addition = document.querySelector('#add');
 addition.addEventListener('click', () => nextOperator = '+');
-
-// document.addEventListener('keypress', (e) => {
-//     let name = e.key;
-//     let code =  e.code;
-//     switch (name) {
-//         case '+':
-//             console.log('+');
-//             break;
-//         case '-':
-            
-//     }
-// });
 
 const subtraction = document.querySelector('#subtract');
 subtraction.addEventListener('click', () => nextOperator = '-');
