@@ -13,19 +13,22 @@ const label = document.querySelector('.label');
 label.textContent = '0';
 
 const btn = document.querySelectorAll('.digit');
-btn.forEach(btn => btn.addEventListener('click', () => {
-    if (operatorClicked === true || label.textContent === '0' || equalClicked === true ||
-        label.textContent === 'ERROR' || label.textContent === 'OVERFLOW') {
-        clearLabel();
-    }
-    if (label.textContent.toString().length === 10) {
-        return;
-    }
-    resetOrangeButtons();
-    operatorClicked = false;
-    equalClicked = false;
-    label.textContent += btn.textContent;
-}));
+btn.forEach(btn => btn.addEventListener('click', () => digitPressed(btn)));
+
+function digitPressed(digit) {
+        if (operatorClicked === true || label.textContent === '0' || equalClicked === true ||
+            label.textContent === 'ERROR' || label.textContent === 'OVERFLOW') {
+            clearLabel();
+        }
+        if (label.textContent.toString().length === 10) {
+            return;
+        }
+        resetOrangeButtons();
+        operatorClicked = false;
+        equalClicked = false;
+        label.textContent += digit.textContent;
+}
+
 
 const allClear = document.querySelector('#clear');
 allClear.addEventListener('click', () => {
@@ -66,6 +69,18 @@ decimal.addEventListener('click', () => {
 const addition = document.querySelector('#add');
 addition.addEventListener('click', () => nextOperator = '+');
 
+// document.addEventListener('keypress', (e) => {
+//     let name = e.key;
+//     let code =  e.code;
+//     switch (name) {
+//         case '+':
+//             console.log('+');
+//             break;
+//         case '-':
+            
+//     }
+// });
+
 const subtraction = document.querySelector('#subtract');
 subtraction.addEventListener('click', () => nextOperator = '-');
 
@@ -76,17 +91,16 @@ const division = document.querySelector('#divide');
 division.addEventListener('click', () => nextOperator = '/');
 
 const operators = document.querySelectorAll('.operator');
-operators.forEach(operator => operator.addEventListener('click', () => {
-    resetOrangeButtons();
-    operator.style.background = 'white';
-    operatorPressed();
-}));
+operators.forEach(operator => operator.addEventListener('click', () => operatorPressed(operator)));
 
 function resetOrangeButtons() {
     operators.forEach(operator => operator.style.background = 'orange');
 }
 
-function operatorPressed() {
+function operatorPressed(pressedOperator) {
+    resetOrangeButtons();
+    pressedOperator.style.background = 'white';
+
     if (operatorClicked === true) {
         operator = nextOperator;
         return;
