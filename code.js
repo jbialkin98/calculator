@@ -51,6 +51,9 @@ percentage.addEventListener('click', () => {
 
 const decimal = document.querySelector('#dot');
 decimal.addEventListener('click', () => {
+    if (equalClicked === true || operatorClicked === true) {
+        return;
+    }
     if (decimalUsed === false) {
         label.textContent += '.';
     }
@@ -141,6 +144,7 @@ function operate() {
     }
 
     equalClicked = false;
+    decimalUsed = false;
     operatorClicked = true;
 }
 
