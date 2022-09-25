@@ -1,11 +1,13 @@
 let firstNumber;
 let secondNumber;
+let currentTotal = 0;
 let operator;
 let nextOperator;
 let operatorClicked = false;
-let equalClicked = false;
 let numberOfTimesOperatorClicked = 0;
-let currentTotal = 0;
+let equalClicked = false;
+let decimalUsed = false;
+
 
 
 const label = document.querySelector('.label');
@@ -13,7 +15,8 @@ label.textContent = '0';
 
 const btn = document.querySelectorAll('.digit');
 btn.forEach(btn => btn.addEventListener('click', () => {
-    if (operatorClicked === true || Number(label.textContent) === 0) {
+    if (operatorClicked === true || label.textContent === '0' || equalClicked === true ||
+        label.textContent === 'ERROR' || label.textContent === 'OVERFLOW') {
         clearLabel();
     }
     if (label.textContent.toString().length === 10) {
@@ -36,7 +39,7 @@ allClear.addEventListener('click', () => {
     equalClicked = false;
 });
 
-const posNeg = document.querySelector('#positivenegative');
+const posNeg = document.querySelector('#positiveNegative');
 posNeg.addEventListener('click', () => {
     label.textContent = Number(label.textContent) * -1;
 });
@@ -44,6 +47,14 @@ posNeg.addEventListener('click', () => {
 const percentage = document.querySelector('#percentage');
 percentage.addEventListener('click', () => {
     label.textContent = Number(label.textContent) / 100;
+});
+
+const decimal = document.querySelector('#dot');
+decimal.addEventListener('click', () => {
+    if (decimalUsed === false) {
+        label.textContent += '.';
+    }
+    decimalUsed = true;
 });
 
 const addition = document.querySelector('#add');
@@ -77,11 +88,6 @@ function operatorPressed() {
     if (numberOfTimesOperatorClicked < 1) {
         firstNumber = label.textContent;
         operator = nextOperator;
-        // pass to operate function with operator
-        // right now, code is taking most recent operator pressed and doing the math 
-            // with that operator, but it should be using the original operator pressed first
-
-        // I can try placing the operator event listeners under the call to the operate function
     } else {
         secondNumber = label.textContent;
         operate();
@@ -89,6 +95,7 @@ function operatorPressed() {
     }
 
     operatorClicked = true;
+    decimalUsed = false;
     numberOfTimesOperatorClicked++;
 }
 
@@ -139,6 +146,7 @@ function operate() {
 
 function add(a, b) {
     let sum = Number(a) + Number(b);
+    sum = Math.round(sum * 1000000) / 1000000;
     labelDisplay(sum);
     currentTotal = sum;
     firstNumber = currentTotal;
@@ -146,6 +154,7 @@ function add(a, b) {
 
 function subtract(a, b) {
     let difference = a - b;
+    difference = Math.round(difference * 1000000) / 1000000;
     labelDisplay(difference);
     currentTotal = difference;
     firstNumber = currentTotal;
@@ -153,6 +162,7 @@ function subtract(a, b) {
 
 function multiply(a, b) {
     let product = a * b;
+    product = Math.round(product * 1000000) / 1000000;
     labelDisplay(product);
     currentTotal = product;
     firstNumber = currentTotal;
@@ -165,6 +175,7 @@ function divide(a, b) {
         return;
     }
     let quotient = a / b;
+    quotient = Math.round(quotient * 1000000) / 1000000;
     labelDisplay(quotient);
     currentTotal = quotient;
     firstNumber = currentTotal;
