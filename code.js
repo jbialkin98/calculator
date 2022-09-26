@@ -33,9 +33,10 @@ function digitPressed(digit) {
         }
 }
 
-
 const allClear = document.querySelector('#clear');
-allClear.addEventListener('click', () => {
+allClear.addEventListener('click', () => clearFunc());
+
+function clearFunc() {
     label.textContent = '0';
     resetOrangeButtons();
     numberOfTimesOperatorClicked = 0;
@@ -43,7 +44,7 @@ allClear.addEventListener('click', () => {
     secondNumber = 0;
     operatorClicked = false;
     equalClicked = false;
-});
+}
 
 const posNeg = document.querySelector('#positiveNegative');
 posNeg.addEventListener('click', () => {
@@ -107,6 +108,10 @@ document.addEventListener('keypress', (e) => {
             break;
         case '%':
             percentClickedFunc();
+            break;
+        case 'c':
+        case 'C':
+            clearFunc();
             break;
     }
 });
