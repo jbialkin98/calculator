@@ -20,8 +20,13 @@ function digitPressed(digit) {
             label.textContent === 'ERROR') {
             clearLabel();
         }
-        if (label.textContent.toString().length === 10) {
+        if (label.textContent.toString().length === 11) {
             return;
+        }
+        if (label.textContent.toString().length > 7) {
+            label.style.fontSize = '50px';
+        } else if (label.textContent.toString().length <= 7) {
+            label.style.fontSize = '65px';
         }
         resetOrangeButtons();
         operatorClicked = false;
@@ -37,6 +42,7 @@ const allClear = document.querySelector('#clear');
 allClear.addEventListener('click', () => clearFunc());
 
 function clearFunc() {
+    label.style.fontSize = '65px';
     label.textContent = '0';
     resetOrangeButtons();
     numberOfTimesOperatorClicked = 0;
@@ -201,7 +207,12 @@ function clearLabel() {
 }
 
 function labelDisplay(display) {
-    if (display.toString().length <= 10) {
+    if (display.toString().length <= 11) {
+        if (display.toString().length > 7) {
+            label.style.fontSize = '50px';
+        } else if (display.toString().length <= 7) {
+            label.style.fontSize = '65px';
+        }
         label.textContent = display;
     } else {
         display = Number(display.toExponential());

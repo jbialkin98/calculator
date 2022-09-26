@@ -1,6 +1,7 @@
 body {
     display: flex;
     justify-content: center;
+    font-family: -apple-system, BlinkMacSystemFont, sans-serif;
 }
 
 .calculator {
@@ -22,7 +23,7 @@ body {
     display: flex;
     justify-content: flex-end;
     align-items: flex-end;
-    padding-right: 10px;
+    padding: 20px;
     color: white;
 }
 
@@ -46,6 +47,9 @@ button {
     height: 90px;
     border-radius: 75%;
     border: solid black;
+    font-size: 30px;
+    font-weight: 500;
+    color: white;
 }
 
 .rightColumn {
@@ -58,4 +62,5 @@ button {
 
 .topButtons {
     background-color: lightgray;
+    color: black;
 }
