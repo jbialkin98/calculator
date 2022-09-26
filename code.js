@@ -51,16 +51,20 @@ posNeg.addEventListener('click', () => {
 });
 
 const percentage = document.querySelector('#percentage');
-percentage.addEventListener('click', () => {
+percentage.addEventListener('click', () => percentClickedFunc());
+
+function percentClickedFunc() {
     if (numberOfTimesPercentageClicked > 0 || operatorClicked === true) {
         return;
     }
     label.textContent = Number(label.textContent) / 100;
     numberOfTimesPercentageClicked++;
-});
+}
 
 const decimal = document.querySelector('#dot');
-decimal.addEventListener('click', () => {
+decimal.addEventListener('click', () => decimalClickedFunc());
+
+function decimalClickedFunc() {
     if (equalClicked === true || operatorClicked === true) {
         return;
     }
@@ -68,13 +72,15 @@ decimal.addEventListener('click', () => {
         label.textContent += '.';
     }
     decimalUsed = true;
-});
+}
 
 document.addEventListener('keypress', (e) => {
     let name = e.key;
     let code =  e.code;
     switch (name) {
         case '+':
+            nextOperator = '+';
+            break;
         case '-':
         case '*':
         case '/':
@@ -90,18 +96,17 @@ document.addEventListener('keypress', (e) => {
         case '8':
         case '9':
         case '0':
-            console.log(name);
             digitPressed(Number(name));
             break;
         case '.':
-            console.log(name);
+            decimalClickedFunc();
             break;
         case '=':
         case 'Enter':
-            console.log(name);
+            equalButtonPressed();
             break;
         case '%':
-            console.log(name);
+            percentClickedFunc();
             break;
     }
 });
@@ -119,16 +124,21 @@ const division = document.querySelector('#divide');
 division.addEventListener('click', () => nextOperator = '/');
 
 const operators = document.querySelectorAll('.operator');
-operators.forEach(operator => operator.addEventListener('click', () => operatorPressed(operator)));
+operators.forEach(operator => operator.addEventListener('click', () => {
+    operatorPressed();
+    turnPressedOperatorWhite(operator);
+}));
 
 function resetOrangeButtons() {
     operators.forEach(operator => operator.style.background = 'orange');
 }
 
-function operatorPressed(pressedOperator) {
+function turnPressedOperatorWhite(pressedOperator) {
     resetOrangeButtons();
     pressedOperator.style.background = 'white';
+}
 
+function operatorPressed() {
     if (operatorClicked === true) {
         operator = nextOperator;
         return;
