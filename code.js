@@ -142,6 +142,7 @@ operators.forEach(operator => operator.addEventListener('click', () => {
 
 function resetOrangeButtons() {
     operators.forEach(operator => operator.style.background = 'orange');
+    operators.forEach(operator => operator.style.color = 'white');
 }
 
 function turnPressedOperatorWhite(pressedOperator) {
@@ -149,18 +150,23 @@ function turnPressedOperatorWhite(pressedOperator) {
     switch (pressedOperator) {
         case '+':
             addition.style.background = 'white';
+            addition.style.color = 'orange';
             break;
         case '-':
             subtraction.style.background = 'white';
+            subtraction.style.color = 'orange';
             break;
         case '*':
             multiplication.style.background = 'white';
+            multiplication.style.color = 'orange';
             break;
         case '/':
             division.style.background = 'white';
+            division.style.color = 'orange';
             break;
         default:
             pressedOperator.style.background = 'white';
+            pressedOperator.style.color = 'orange';
             break;
     }
 }
