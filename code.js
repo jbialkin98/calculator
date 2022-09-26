@@ -79,12 +79,12 @@ document.addEventListener('keypress', (e) => {
     let code =  e.code;
     switch (name) {
         case '+':
-            nextOperator = '+';
-            break;
         case '-':
         case '*':
         case '/':
-            console.log(name);
+            nextOperator = name;
+            operatorPressed();
+            turnPressedOperatorWhite(name);
             break;
         case '1':
         case '2':
@@ -135,7 +135,23 @@ function resetOrangeButtons() {
 
 function turnPressedOperatorWhite(pressedOperator) {
     resetOrangeButtons();
-    pressedOperator.style.background = 'white';
+    switch (pressedOperator) {
+        case '+':
+            addition.style.background = 'white';
+            break;
+        case '-':
+            subtraction.style.background = 'white';
+            break;
+        case '*':
+            multiplication.style.background = 'white';
+            break;
+        case '/':
+            division.style.background = 'white';
+            break;
+        default:
+            pressedOperator.style.background = 'white';
+            break;
+    }
 }
 
 function operatorPressed() {
